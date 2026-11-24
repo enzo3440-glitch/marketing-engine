@@ -7,15 +7,25 @@
  * A video's feature is its `feature` tag when one was set by hand; otherwise it is read from its hook, script and
  * caption by the keyword lists below (the hook decides whenever it matches; the rest breaks ties).
  */
-export const FEATURES = [
-  { id: "custom_tours", name: "Custom tours", color: "#2563eb", words: ["tour", "walking tour", "guided", "your own route", "route for you", "itinerary for you"] },
-  { id: "trip_guide", name: "Simple trip guide", color: "#0891b2", words: ["plan", "planning", "research", "tabs", "guide", "itinerary", "list", "covered", "flight and the hotel", "take care of the rest", "free day", "hours free", "afternoon"] },
-  { id: "like_a_local", name: "Travel like a local", color: "#d97706", words: ["local", "locals", "no english menu", "counter", "izakaya", "neighborhood", "neighbourhood", "the food", "where they eat"] },
-  { id: "get_lost", name: "Getting lost", color: "#0f766e", words: ["get lost", "getting lost", "no plan", "don't follow the crowd", "in-between", "in between", "just go", "spontan", "long way", "aren't lost", "aren’t lost"] },
-  { id: "hidden_gems", name: "Hidden gems", color: "#e11d48", words: ["hidden", "gem", "secret", "can't search", "can’t search", "not on instagram", "not on google", "same 5 spots", "same places", "sends everyone", "sent you here", "couldn't send", "couldn’t send", "isn't on your feed", "isn’t on your feed", "everyone photographs", "most people", "the feed", "the crowd", "nobody"] },
-  { id: "gamification", name: "Gamification", color: "#7c3aed", words: ["riddle", "unlock", "quest", "challenge", "solve", "points", "badge", "collect", "game", "level up"] },
-] as const;
-export type FeatureId = (typeof FEATURES)[number]["id"] | "other";
+export interface Feature { id: string; name: string; color: string; words: readonly string[]; angle?: string }
+
+const FALLBACK: Feature[] = [
+  { id: "problem_solution", name: "Problem → solution", color: "#2563eb", words: ["tired of", "the old way", "instead", "no more", "skip the"] },
+  { id: "how_it_works", name: "How it works", color: "#0891b2", words: ["how", "in seconds", "tap", "step", "easy"] },
+];
+
+/** Read from services/reel-engine/knowledge/features.json at build time (next.config.mjs puts it in DESK_FEATURES). */
+function load(): Feature[] {
+  try {
+    const raw = process.env.DESK_FEATURES;
+    const list = raw ? (JSON.parse(raw) as { features?: Feature[] }).features : null;
+    const ok = (list ?? []).filter((f) => f && typeof f.id === "string" && typeof f.name === "string" && Array.isArray(f.words));
+    return ok.length ? ok.map((f) => ({ ...f, color: f.color || "#64748b", words: f.words.map((w) => String(w).toLowerCase()) })) : FALLBACK;
+  } catch { return FALLBACK; }
+}
+
+export const FEATURES: readonly Feature[] = load();
+export type FeatureId = string;
 export const FEATURE_IDS = FEATURES.map((f) => f.id) as FeatureId[];
 export const featureName = (id: string) => FEATURES.find((f) => f.id === id)?.name ?? "Unsorted";
 export const featureColor = (id: string) => FEATURES.find((f) => f.id === id)?.color ?? "#64748b";

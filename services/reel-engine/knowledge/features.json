@@ -1,0 +1,17 @@
+{
+  "_setup": "Starter content angles. During SETUP.md step 7 your AI replaces these with the 3-6 real features or angles your brand sells. Each video is tagged with one, results roll up by it, and ads get one ad set per feature. Rebuild the desk (pnpm desk) after editing.",
+  "features": [
+    { "id": "problem_solution", "name": "Problem → solution", "color": "#2563eb",
+      "words": ["tired of", "the old way", "instead", "no more", "skip the", "without the"],
+      "angle": "Open on the everyday problem in one beat, then the better way the product gives, then the result." },
+    { "id": "how_it_works", "name": "How it works", "color": "#0891b2",
+      "words": ["how", "in seconds", "tap", "step", "just", "easy", "set up"],
+      "angle": "Show the product doing its one main job, start to finish, big enough to read in one glance." },
+    { "id": "the_result", "name": "The result", "color": "#d97706",
+      "words": ["after", "finally", "result", "now i", "look at", "this is what"],
+      "angle": "Lead with the payoff: the moment or outcome people want, and let the product be the quiet reason it happened." },
+    { "id": "insider", "name": "Insider tip", "color": "#e11d48",
+      "words": ["nobody tells you", "secret", "most people", "the trick", "instead of", "what i wish"],
+      "angle": "One insider fact the audience doesn't know yet, shown, not told, with the product as the way to act on it." }
+  ]
+}

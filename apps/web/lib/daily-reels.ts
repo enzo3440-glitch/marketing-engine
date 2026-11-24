@@ -66,14 +66,10 @@ Real video plays as real video: slow motion only on clips shot at 60 fps or more
 frame-stepped or zoomed as stills (README.md, "Footage speed"). One place per reel. Few people, small or from behind.`;
 
 /** New reel angles, rotated by day so the account doesn't repeat itself. Each names its place and its material. */
-const ANGLES: { feature: FeatureId; title: string; ask: string }[] = [
-  { feature: "custom_tours", title: "A route made for you", ask: "One place from the best-of footage as a single route made for you: each stop flowing into the next like something planned around the viewer. One short line in the brand voice." },
-  { feature: "trip_guide", title: "Nothing to research", ask: "One place from the best-of footage, shown as if everything was already taken care of: no planning, no tabs, just the place. One short line in the brand voice." },
-  { feature: "like_a_local", title: "Where locals go", ask: "One place from the best-of footage at the hour locals are out: the small, real spots over the famous ones. One short line in the brand voice, or none." },
-  { feature: "get_lost", title: "No plan needed", ask: "One place from the best-of footage, slow and unhurried, as if nobody had a plan. One short line in the brand voice, or none." },
-  { feature: "hidden_gems", title: "Not on the feed", ask: "One place from the best-of footage that most people never see, kindly contrasted with the crowded version for one beat. One short line in the brand voice." },
-  { feature: "gamification", title: "Follow the clue", ask: "One place from the best-of footage as a trail of clues, each shot leading to the next, ending on the reveal. One short line in the brand voice." },
-];
+const ANGLES: { feature: FeatureId; title: string; ask: string }[] = FEATURES.map((f) => ({
+  feature: f.id, title: f.name,
+  ask: `One idea from the best-of footage about "${f.name}". ${f.angle ?? "Show it, don't explain it."} One short line in the brand voice, or none.`,
+}));
 
 /** The one thing a remix changes, so each remix teaches us something (the daily read compares them). */
 const CHANGES: Record<string, string> = {

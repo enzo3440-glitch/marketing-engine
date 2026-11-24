@@ -24,10 +24,16 @@ function loadRootEnv(file) {
 }
 loadRootEnv(path.join(here, "../../.env"));
 
+// The features/angles videos are tagged with (services/reel-engine/knowledge/features.json), for lib/features.ts.
+function readFeatures() {
+  try { return JSON.stringify(JSON.parse(fs.readFileSync(path.join(here, "../../services/reel-engine/knowledge/features.json"), "utf8"))); }
+  catch { return ""; }
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // the desk clock, readable in the browser too (lib/tz.ts)
-  env: { DESK_TIMEZONE: process.env.DESK_TIMEZONE || "UTC" },
+  env: { DESK_TIMEZONE: process.env.DESK_TIMEZONE || "UTC", DESK_FEATURES: readFeatures() },
   // Standalone output for Docker (set in apps/web/Dockerfile). Off locally: on Windows it needs symlink rights.
   output: process.env.NEXT_STANDALONE === "1" ? "standalone" : undefined,
   transpilePackages: ["@engine/db", "@engine/connectors", "@engine/advisor"],

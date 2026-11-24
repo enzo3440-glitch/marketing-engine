@@ -169,11 +169,14 @@ This is the most important step: every idea, script, edit and re-cut reads these
 2. Fill in `services/reel-engine/knowledge/brand-voice.md` (keep the section headings; the desk looks up
    `## The cinematic look` and `## Founder notes` by name) and `services/reel-engine/knowledge/brand-content.md`.
    Write it in their words. Read it back to them and fix what they say is off.
-3. Leave `what-works.md` and `niche-trends.md` as they are: the lab and the trend reader write those from real results.
-4. Optionally, read `packages/advisor/skill/marketing-advisor/SKILL.md` and its references for the marketing advisor's
+3. Replace the starter angles in `services/reel-engine/knowledge/features.json` with the 3-6 real features or
+   angles the brand sells (id, name, colour, keywords that signal it, one-line angle). Every video is tagged with one,
+   results roll up by it, and ads get one ad set per feature.
+4. Leave `what-works.md` and `niche-trends.md` as they are: the lab and the trend reader write those from real results.
+5. Optionally, read `packages/advisor/skill/marketing-advisor/SKILL.md` and its references for the marketing advisor's
    method, and adapt `references/marketing-plan.md` to their goals.
 
-**Check:** no `[bracket]` placeholders remain in brand-voice.md or brand-content.md (`grep -n '\[' ...` shows only real
+**Check:** `features.json` is valid JSON with their own features, no `[bracket]` placeholders remain in brand-voice.md or brand-content.md (`grep -n '\[' ...` shows only real
 text), and the person has said "yes, that sounds like us".
 
 ## Step 8. First build and run

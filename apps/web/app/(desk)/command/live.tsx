@@ -352,7 +352,7 @@ function Drawer({ video, camp, currency, onClose, onChanged }: { video: LiveVide
           {v && v.video && (
             <div>
               <div className="label mb-1">Suggest a change</div>
-              <Textarea rows={2} placeholder="e.g. open on the snowy shrine, shorter first line" value={note} onChange={(e) => setNote(e.target.value)} />
+              <Textarea rows={2} placeholder="e.g. open on the most striking shot, shorter first line" value={note} onChange={(e) => setNote(e.target.value)} />
               <div className="mt-1 flex items-center gap-2">
                 <Button size="sm" variant="outline" disabled={busy || !note.trim()} onClick={() => send({ action: "note", key: v.key, text: note })}>Save for the next re-cut</Button>
               </div>
