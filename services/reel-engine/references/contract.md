@@ -20,8 +20,8 @@ worker API (`engine/server.py`) or by writing `job.json` and calling `python -m 
 2. **Analyze/plan preview** → submit job with `plans_only` via CLI or just submit; manifest returns per-clip `quality`, `thumb`, `talking_likely`, best windows — use these to auto-tag `kind` and pre-select heroes.
 3. **Batch builder** → user picks formats, hooks (from `reel_hooks`, + "generate 6 more" via Claude), looks, music/timing track, count. Desk posts:
    ```json
-   {"job_id": "oahu-2026-10-25", "clips": [{"id":"c1","path":"lanikai.mp4","star":true}],
-    "defaults": {"duration": 12, "music": "synth:cinematic", "endcard": true, "hashtags": ["oahu"]},
+   {"job_id": "weekend-2026-01-15", "clips": [{"id":"c1","path":"beach.mp4","star":true}],
+    "defaults": {"duration": 12, "music": "synth:cinematic", "endcard": true, "hashtags": ["weekend"]},
     "matrix": {"formats": ["montage","oneshot","pov"], "hooks": [{"id":"h1","text":"…"}], "grades": ["teal_orange","film"], "max": 12}}
    ```
 4. **Poll** `GET /jobs/<id>` → `status` queued/rendering/done/error; `manifest.variants[]` has file/poster/caption paths → serve via `GET /files/<job>/<name>`.

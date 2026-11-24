@@ -1,4 +1,4 @@
-// Daily 6:00 HST: ingest ads + App Store + signups, compute attribution signals, write the morning brief.
+// Daily 6:00 desk time: ingest ads + App Store + signups, compute attribution signals, write the morning brief.
 import { createConnectors } from "@engine/connectors";
 import { dailyTotals, hstDate, lagCorrelation, metricSeries } from "@engine/db";
 import { z } from "zod";

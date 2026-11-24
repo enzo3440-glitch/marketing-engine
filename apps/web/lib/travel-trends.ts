@@ -1,3 +1,4 @@
+import { tzOffsetMs } from "./tz";
 import "server-only";
 import fs from "node:fs";
 import path from "node:path";
@@ -39,7 +40,7 @@ interface State { days: Day[] }
 
 const read = (): State => { try { return JSON.parse(fs.readFileSync(STATE, "utf8")); } catch { return { days: [] }; } };
 const write = (s: State) => { fs.mkdirSync(path.dirname(STATE), { recursive: true }); fs.writeFileSync(STATE, JSON.stringify(s, null, 1)); };
-const today = () => new Date(Date.now() - 10 * 3600_000).toISOString().slice(0, 10); // HST, like the rest of the desk
+const today = () => new Date(Date.now() + tzOffsetMs()).toISOString().slice(0, 10); // desk time, like the rest of the desk
 const hoursSince = (iso?: string) => (iso ? (Date.now() - Date.parse(iso)) / 3_600_000 : Infinity);
 
 export function travelTrendsStatus() {

@@ -289,7 +289,7 @@ export interface AdWaves {
 }
 export interface AdCampaign {
   id: string; title: string; concept_id: string | null; objective: AdObjective;
-  /** Honolulu dates, inclusive. */
+  /** Desk-clock dates, inclusive. */
   starts_on: string; ends_on: string;
   /** In the ad account's currency (whole units, e.g. dollars). */
   daily_budget: number; countries: string[]; age_min: number; age_max: number;

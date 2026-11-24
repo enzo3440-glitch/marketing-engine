@@ -1,3 +1,4 @@
+import { tzOffsetMs } from "@engine/db";
 // Read-only views of the desk's dashboards, computed from the same rows and helpers the pages use.
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
@@ -44,7 +45,7 @@ export function registerDashboards(server: McpServer) {
       today, kpis: k,
       pendingApprovals: approvals.filter((a) => a.status === "pending").map((a) => ({ id: a.id, type: a.type, title: a.title, summary: a.summary, by: a.created_by_agent, created_at: a.created_at })),
       openIncidents: open.slice(0, 20).map((i) => ({ id: i.id, severity: i.severity, source: i.source, title: i.title, status: i.status, occurrences: i.occurrences, last_seen: i.last_seen })),
-      todaysEvents: events.filter((e) => new Date(Date.parse(e.starts_at) - 10 * 3600_000).toISOString().slice(0, 10) === today),
+      todaysEvents: events.filter((e) => new Date(Date.parse(e.starts_at) + tzOffsetMs()).toISOString().slice(0, 10) === today),
       agents: AGENTS.map((agent) => {
         const r = runs.find((x) => x.agent === agent);
         return { agent, status: r?.status ?? "never", started_at: r?.started_at ?? null, finished_at: r?.finished_at ?? null };

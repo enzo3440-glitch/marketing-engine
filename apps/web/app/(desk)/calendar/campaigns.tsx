@@ -60,7 +60,7 @@ export function CampaignCalendar({ campaigns, posts = [], concepts, strategy, re
       {error && <p className="text-xs text-destructive">{error}</p>}
       <div className="grid gap-4 xl:grid-cols-4">
         <Card className="xl:col-span-3">
-          <CardHeader title={`Campaigns & planned posts · ${fmt.date(days[0])} – ${fmt.date(days[days.length - 1])}`} description="Honolulu dates. Solid bars are Meta ad campaigns (click to edit); dashed chips are plan posts by pillar, untested until reviewed." action={
+          <CardHeader title={`Campaigns & planned posts · ${fmt.date(days[0])} – ${fmt.date(days[days.length - 1])}`} description="Desk-clock dates. Solid bars are Meta ad campaigns (click to edit); dashed chips are plan posts by pillar, untested until reviewed." action={
             <div className="flex gap-1 text-xs">
               <Link className="rounded border px-2 py-1" href={`?w=${offset - 4}`}>←</Link>
               <Link className="rounded border px-2 py-1" href="?w=0">Now</Link>

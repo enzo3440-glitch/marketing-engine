@@ -1,3 +1,4 @@
+import { tzSuffix } from "./tz";
 import "server-only";
 import { ALL_PLAN_POSTS, getRepo, nextMonday, schedulePlan, type ContentItem, type PlanPost } from "@engine/db";
 import { hstToday } from "./utils";
@@ -11,8 +12,8 @@ export const planId = (ref: string) => `plan-${ref}`;
 export type PlanMeta = PlanPost & { gates: { reviewed: boolean; tested: boolean; reviewed_by?: string; tested_by?: string }; launch_start: string };
 export const isPlanItem = (c: ContentItem) => c.id.startsWith("plan-") && !!(c.meta as Partial<PlanMeta>).pillar;
 
-/** 8:00 a.m. Honolulu on a plan date. */
-const at = (day: string | null) => (day ? new Date(`${day}T08:00:00-10:00`).toISOString() : null);
+/** 8:00 a.m. desk time on a plan date. */
+const at = (day: string | null) => (day ? new Date(`${day}T08:00:00${tzSuffix()}`).toISOString() : null);
 
 /** Add the posts that aren't in the pipeline yet; reschedule ones still at "idea" to the given launch Monday. */
 export async function importPlan(launchStart?: string): Promise<{ added: number; rescheduled: number; launch_start: string }> {

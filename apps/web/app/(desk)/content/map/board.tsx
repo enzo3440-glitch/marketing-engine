@@ -280,7 +280,7 @@ function Brainstorm({ doc, enabled, onClose, onCopy, onApply }: { doc: Marketing
     <Modal title="Brainstorm, then review" onClose={onClose}>
       <p className="text-sm text-muted-foreground">Proposals are never applied automatically. {enabled ? "Ask Claude, or" : "No model key is set:"} copy the prompt into any assistant and paste its JSON below.</p>
       <div className="mt-3 flex gap-2">
-        {enabled && <Input placeholder="Optional focus, e.g. rainy-day Oahu" value={focus} onChange={(e) => setFocus(e.target.value)} />}
+        {enabled && <Input placeholder="Optional focus, e.g. a rainy weekend" value={focus} onChange={(e) => setFocus(e.target.value)} />}
         {enabled && <Button disabled={busy} onClick={async () => {
           setBusy(true); setErr("");
           try { const p = await api("/api/marketing-map/brainstorm", { method: "POST", json: { focus } }); const s = JSON.stringify(p, null, 2); setText(s); review(s); }

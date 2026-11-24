@@ -9,7 +9,7 @@ from pathlib import Path
 BRAND_NAME = os.environ.get("BRAND_NAME", "our brand")
 BRAND_TAGLINE = os.environ.get("BRAND_TAGLINE", "Look closer.")
 BRAND_PITCH = os.environ.get("BRAND_PITCH", "")
-BRAND_NICHE = os.environ.get("BRAND_NICHE", "travel")
+BRAND_NICHE = os.environ.get("BRAND_NICHE", "lifestyle")
 BRAND_GOAL = os.environ.get("BRAND_GOAL", "")
 BRAND_IG_HANDLE = os.environ.get("BRAND_IG_HANDLE", "")
 BRAND_CTA = os.environ.get("BRAND_CTA", "")

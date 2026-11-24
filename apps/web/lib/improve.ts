@@ -1,3 +1,4 @@
+import { tzSuffix } from "./tz";
 import "server-only";
 import { getRepo, type AdCampaign, type Approval, type CandidateMetrics, type GrowthTest, type TestCandidate } from "@engine/db";
 import { buildCampaign, creativesOf, defaultObjective, getCampaign, media, metaAds, setPaused } from "./ad-campaigns";
@@ -461,12 +462,12 @@ async function scaleCampaign(c: AdCampaign, daily: number, days: number) {
   const sets = c.meta.adsets ? Object.values(c.meta.adsets) : c.meta.adset_id ? [c.meta.adset_id] : [];
   if (c.meta.waves) {
     // a waves launch: the new total is split between Winners and the feature ad sets, never over what was approved
-    for (const id of sets) await m.updateAdSet(id, { endTime: `${end}T23:59:00-10:00` });
+    for (const id of sets) await m.updateAdSet(id, { endTime: `${end}T23:59:00${tzSuffix()}` });
     await getRepo().update("ad_campaigns", { id: c.id }, { daily_budget: daily, ends_on: end, updated_at: now() });
     const { rebudget } = await import("./waves");
     await rebudget({ ...c, daily_budget: daily, ends_on: end });
   } else {
-    for (const id of sets) await m.updateAdSet(id, { dailyBudgetMinor: Math.round((daily / sets.length) * (acct.currency === "JPY" ? 1 : 100)), endTime: `${end}T23:59:00-10:00` });
+    for (const id of sets) await m.updateAdSet(id, { dailyBudgetMinor: Math.round((daily / sets.length) * (acct.currency === "JPY" ? 1 : 100)), endTime: `${end}T23:59:00${tzSuffix()}` });
     await getRepo().update("ad_campaigns", { id: c.id }, { daily_budget: daily, ends_on: end, updated_at: now() });
   }
   if (c.status === "paused") await setPaused(c.id, false);

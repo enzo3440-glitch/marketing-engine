@@ -23,7 +23,7 @@ function stub(ctx: ConnectorContext, def: Omit<Connector, "test" | "sync" | "imp
 export const googleCloudConnector = (ctx: ConnectorContext) => stub(ctx, {
   id: "google_cloud", label: "Google Cloud billing", requiredEnv: ["GCP_BILLING_PROJECT", "GCP_BILLING_DATASET", "GOOGLE_APPLICATION_CREDENTIALS_JSON"],
   docs: "https://cloud.google.com/billing/docs/how-to/export-data-bigquery",
-  // TODO: @google-cloud/bigquery; SELECT DATE(usage_start_time, 'Pacific/Honolulu') d, service.description, SUM(cost)
+  // TODO: @google-cloud/bigquery; SELECT DATE(usage_start_time, DESK_TIMEZONE) d, service.description, SUM(cost)
   //       FROM `${project}.${dataset}.gcp_billing_export_v1_*` WHERE usage_start_time >= @since GROUP BY 1,2
   //       → upsert api_spend(provider='google', model=service.description).
   todo: "query the BigQuery billing export grouped by day + service into api_spend (provider=google)",

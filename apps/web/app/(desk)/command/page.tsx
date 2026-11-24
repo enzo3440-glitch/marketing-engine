@@ -1,3 +1,4 @@
+import { tzOffsetMs } from "@/lib/tz";
 import { getRepo, PILLARS } from "@engine/db";
 import Link from "next/link";
 import { ApprovalsQueue } from "@/components/approvals";
@@ -8,7 +9,7 @@ import { agentStatus, loadKpis } from "@/lib/data";
 import { fmt, hstToday } from "@/lib/utils";
 import { LiveSection } from "./live";
 
-const hstDay = (iso: string) => new Date(Date.parse(iso) - 10 * 3600_000).toISOString().slice(0, 10);
+const hstDay = (iso: string) => new Date(Date.parse(iso) + tzOffsetMs()).toISOString().slice(0, 10);
 const addDays = (d: string, n: number) => { const x = new Date(d + "T12:00:00Z"); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
 const CH: Record<string, string> = { ig_organic: "IG", ig_paid: "Ad", tiktok: "TT" };
 

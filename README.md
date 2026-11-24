@@ -30,8 +30,8 @@ Open this folder in Claude Code (or another coding AI) and say:
 It walks you through installing the tools, signing in, creating a Meta app and token, filling `.env`, writing your brand
 voice, and posting your first video. Reading it yourself works too.
 
-Quick look with no accounts at all: `npx -y pnpm@9.15.0 install && npx -y pnpm@9.15.0 dev`, then open
-http://localhost:3000 (runs on example data).
+Quick look with no accounts at all (example data): `npx -y pnpm@9.15.0 install && npx -y pnpm@9.15.0 dev`, then open
+http://localhost:3000.
 
 ## Your data stays yours
 
@@ -40,7 +40,7 @@ gitignored. Don't commit them if you fork this repo publicly.
 
 ## Notes
 
-- The desk keeps its calendar day on a fixed UTC−10 clock (see `apps/web/lib/utils.ts`); change it there if you post on another schedule.
+- One `.env` in the repo root configures everything (desk, engine, MCP server). Set `DESK_TIMEZONE` to your timezone.
 - The bundled Happy Beats tracks are by Sascha Ende (ende.app), CC BY 4.0, not covered by this repo's license. Add your
   own cleared tracks for ads (`services/reel-engine/assets/music/ads/README.md`).
 - Fonts in `services/reel-engine/assets/fonts` are from Google Fonts (SIL Open Font License).

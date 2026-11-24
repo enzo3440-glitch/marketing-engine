@@ -1,9 +1,10 @@
+import { tzOffsetMs } from "@/lib/tz";
 import { efficacy, getRepo, type ContentItem } from "@engine/db";
 import { ContentBoard } from "./board";
 import { Badge, Card, CardHeader, Table, Td, Th } from "@/components/ui";
 import { fmt, hstToday } from "@/lib/utils";
 
-const dayOf = (iso: string) => new Date(Date.parse(iso) - 10 * 3600_000).toISOString().slice(0, 10);
+const dayOf = (iso: string) => new Date(Date.parse(iso) + tzOffsetMs()).toISOString().slice(0, 10);
 
 export default async function ContentPage() {
   const items = await getRepo().list("content_items");
@@ -29,7 +30,7 @@ export default async function ContentPage() {
   return (
     <div className="space-y-5">
       <Card>
-        <CardHeader title="Content calendar" description="Posted and scheduled items, Honolulu time" />
+        <CardHeader title="Content calendar" description="Posted and scheduled items, desk time" />
         <div className="grid grid-cols-7 text-xs">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => <div key={d} className="border-b px-2 py-1.5 text-muted-foreground">{d}</div>)}
           {days.map((d) => (

@@ -1,3 +1,4 @@
+import { tzOffsetMs } from "./tz";
 import "server-only";
 import fs from "node:fs";
 import path from "node:path";
@@ -691,7 +692,7 @@ async function labPass(s: State) {
     const v = variants.find((x) => x.job_id === job && x.id === id);
     const at = posts.find((p) => p.job_id === job && p.variant_id === id)?.posted_at;
     rows.push({ key: it.key, kind: it.kind, label: it.label, feature: it.feature, sound: v?.tags?.sound ?? "unknown", secs: v ? lengthOf(v) : null,
-      by: v?.tags?.brag ? "desk" : "founder's own", hour: at ? new Date(Date.parse(at) - 10 * 3600_000).getUTCHours() : null, m });
+      by: v?.tags?.brag ? "desk" : "founder's own", hour: at ? new Date(Date.parse(at) + tzOffsetMs()).getUTCHours() : null, m });
   }
   const { igAccount, igPosts } = await import("./meta-insights");
   const [acct, ig] = await Promise.all([igAccount().catch(() => null), igPosts(30).catch(() => null)]);

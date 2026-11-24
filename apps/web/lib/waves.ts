@@ -1,3 +1,4 @@
+import { tzSuffix } from "./tz";
 import "server-only";
 import { getRepo, type AdCampaign, type AdWaves } from "@engine/db";
 import { adFeatures, adsetPlan, creativesOf, metaAds, minPerAdset, toMinor } from "./ad-campaigns";
@@ -226,7 +227,7 @@ export async function wavesPass(id: string, reads: Map<string, AdRead>, note: (t
       if (!c.meta.waves.winners_adset_id) {
         const app = c.objective === "app_installs" || /apps\.apple\.com|play\.google\.com/.test(c.link) ? await m.appFor(c.link) : null;
         const sid = await m.createAdSet({ name, campaignId: c.meta.waves.winners_campaign_id!, goal: c.objective, startTime: new Date(Date.now() + 5 * 60_000).toISOString(),
-          endTime: `${c.ends_on}T23:59:00-10:00`, countries: c.countries, ageMin: c.age_min, ageMax: c.age_max, link: c.link, appId: app?.id });
+          endTime: `${c.ends_on}T23:59:00${tzSuffix()}`, countries: c.countries, ageMin: c.age_min, ageMax: c.age_max, link: c.link, appId: app?.id });
         await save((x) => { x.meta.waves!.winners_adset_id = sid; });
       }
       for (const [k, r] of proven) {

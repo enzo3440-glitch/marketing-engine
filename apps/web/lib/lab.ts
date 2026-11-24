@@ -1,3 +1,4 @@
+import { tzLabel } from "./tz";
 import "server-only";
 import fs from "node:fs";
 import path from "node:path";
@@ -226,7 +227,7 @@ export async function distill(rows: Row[], formats: { kind: string; reach: numbe
   const kept = (r: Row) => (r.m.skip != null ? 1 - r.m.skip : null);
   const fmt = new Map<string, { n: number; reach: number; eng: number }>();
   for (const p of formats) { if (!p.reach) continue; const e = fmt.get(p.kind) ?? { n: 0, reach: 0, eng: 0 }; e.n++; e.reach += p.reach; e.eng += p.likes + (p.saves ?? 0) + (p.shares ?? 0); fmt.set(p.kind, e); }
-  const hourName = (h: number | null) => (h == null ? "unknown" : `${String(h).padStart(2, "0")}:00 HST`);
+  const hourName = (h: number | null) => (h == null ? "unknown" : `${String(h).padStart(2, "0")}:00 ${tzLabel()}`);
   const boards = [
     `Trial reels, kept past the first seconds (1 - skip rate), by feature: ${board(trials, (r) => r.feature, kept)}`,
     `Trial reels, kept, by sound: ${board(trials, (r) => r.sound, kept)}`,

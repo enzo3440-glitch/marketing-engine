@@ -1,9 +1,10 @@
+import { tzOffsetMs } from "./tz";
 // The ad campaign calendar's clock, kept free of server-only imports so instrumentation.ts can load it.
 import { MetaAds } from "@engine/connectors";
 import { getRepo, type AdCampaign } from "@engine/db";
 
 const now = () => new Date().toISOString();
-const hstToday = () => new Date(Date.now() - 10 * 3600_000).toISOString().slice(0, 10);
+const hstToday = () => new Date(Date.now() + tzOffsetMs()).toISOString().slice(0, 10);
 
 export async function tickCampaign(c: AdCampaign, m: MetaAds, today = hstToday()): Promise<void> {
   const repo = getRepo();

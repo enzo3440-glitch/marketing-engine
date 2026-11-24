@@ -8,7 +8,7 @@ import { hstToday } from "./utils";
  * How many trial reels a day.
  *
  * Instagram doesn't publish its trial-reel limit (5-25 a day by account, reported), so the desk finds it:
- *  - it starts at START a day. Each Honolulu day after one where the cap was used up with no refusal, it goes up STEP.
+ *  - it starts at START a day. Each desk-clock day after one where the cap was used up with no refusal, it goes up STEP.
  *  - every trial reel goes out one at a time through postTrial, so the moment Instagram refuses one for a limit, nothing
  *    else is sent: the ceiling is what got through in the last 24 h, and the cap stays there.
  *  - RETEST_DAYS after a refusal it tries one more a day, in case the account's limit went up.
@@ -47,7 +47,7 @@ function save(s: CapState) {
 }
 const days = (a: string, b: string) => Math.round((Date.parse(b + "T00:00:00Z") - Date.parse(a + "T00:00:00Z")) / DAY);
 
-/** A new Honolulu day: ramp up if yesterday's cap was used up and nothing was refused, or re-test an old ceiling. */
+/** A new desk-clock day: ramp up if yesterday's cap was used up and nothing was refused, or re-test an old ceiling. */
 function roll(s: CapState): boolean {
   const today = hstToday();
   if (s.date === today) return false;

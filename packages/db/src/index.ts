@@ -1,3 +1,4 @@
+export * from "./tz";
 export * from "./types";
 export * from "./compute";
 export * from "./learn";

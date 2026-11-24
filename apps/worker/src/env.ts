@@ -4,4 +4,4 @@ export const num = (k: string, d: number) => (env[k] ? Number(env[k]) : d);
 
 export { apiBudgets as budgets } from "@engine/db";
 
-export const TZ = "Pacific/Honolulu";
+export const TZ = process.env.DESK_TIMEZONE || "UTC";

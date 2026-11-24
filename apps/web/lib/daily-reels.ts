@@ -17,7 +17,7 @@ import { BRAND } from "./brand";
 /**
  * The Instagram stream's daily engine.
  *
- * Once per Honolulu day it makes enough Instagram reels to fill today's trial-reel cap (ramping up until Instagram refuses, lib/trial-cap.ts):
+ * Once per desk-clock day it makes enough Instagram reels to fill today's trial-reel cap (ramping up until Instagram refuses, lib/trial-cap.ts):
  *  - about a third are REMIXES of what's working on the account: the best recent posts by (saves + shares) / reach,
  *    each changed a little (a new opening line, a different first shot, a different place or song start). A desk-made
  *    winner is tweaked in its own /brag folder; one posted from outside the desk is downloaded and re-cut.
@@ -90,7 +90,7 @@ const REMIX = (why: string, change: string) => `Results: this reel is one of our
 // every feature keeps a reel a day until MIN_READS of its reels have been read, the rest go to the features most likely
 // to be the best (sampled from their saves + shares per reach, so a lucky reel doesn't decide it), about 30% are remixes
 // of the account's winners that change ONE thing (the change we know least about), and live optimize's re-cuts keep
-// RESERVE slots free. Read once a Honolulu day, before the day's reels are made.
+// RESERVE slots free. Read once a desk-clock day, before the day's reels are made.
 
 const MIN_READS = 4;
 const RESERVE = () => (optimizeOn() ? 2 : 0);

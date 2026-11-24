@@ -1,3 +1,4 @@
+import { tzOffsetMs } from "@engine/db";
 // Shared plumbing for the tools: env, roles, fresh repo reads, desk HTTP writes, the Reel Engine client.
 import fs from "node:fs";
 import path from "node:path";
@@ -127,7 +128,7 @@ export async function deskUp(): Promise<boolean> {
 /** Reel Engine client; REEL_TOKEN stays in this process, never in tool output. */
 export const engine = () => ReelEngine.fromEnv(process.env);
 
-// Dates (Honolulu, like the desk) -----------------------------------------------------------------
+// Dates (desk clock) -----------------------------------------------------------------
 
-export const hstToday = () => new Date(Date.now() - 10 * 3600_000).toISOString().slice(0, 10);
-export const daysAgo = (n: number) => new Date(Date.now() - 10 * 3600_000 - n * 86400_000).toISOString().slice(0, 10);
+export const hstToday = () => new Date(Date.now() + tzOffsetMs()).toISOString().slice(0, 10);
+export const daysAgo = (n: number) => new Date(Date.now() + tzOffsetMs() - n * 86400_000).toISOString().slice(0, 10);

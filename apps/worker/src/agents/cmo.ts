@@ -1,4 +1,4 @@
-// Daily 7:00 HST: Content Strategist. Reviews post performance, the Reel Engine leaderboard, migrated CMO
+// Daily 7:00 desk time: Content Strategist. Reviews post performance, the Reel Engine leaderboard, migrated CMO
 // research and the Marketing Map; drafts next posts as content_items + post approvals.
 import { ReelEngine } from "@engine/connectors";
 import { efficacy, REEL_FORMATS, type PerfRow } from "@engine/db";

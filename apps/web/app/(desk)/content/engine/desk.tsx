@@ -836,7 +836,7 @@ function TrendingSounds() {
       <div className="mb-1 flex items-center justify-between gap-2">
         <span className="font-medium">Trending sounds <span className="font-normal text-muted-foreground">· add in-app on the _bare cut</span></span>
         <button type="button" disabled={!q.data?.canRefresh || refresh.isPending} onClick={() => refresh.mutate()}
-          title={q.data?.canRefresh ? "Search the web for sounds and hooks trending this month" : "Needs ANTHROPIC_API_KEY"}
+          title={q.data?.canRefresh ? "Search the web for sounds and hooks trending this month" : "Optional: web-search trend refresh needs a Claude API key, which this setup does not use. Daily niche trends still run."}
           className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground disabled:opacity-50">
           {refresh.isPending ? <Loader2 className="h-3 w-3 animate-spin" /> : <Sparkles className="h-3 w-3" />}Refresh
         </button>

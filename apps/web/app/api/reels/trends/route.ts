@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   // Hand-picked sounds (from a trend roundup you read) can be added without web search.
   const manual = (await req.json().catch(() => null)) as Scouted | null;
   if (manual?.sounds?.length) return Response.json({ sounds: await saveSounds(manual.sounds), hooks: 0 });
-  if (!apiKeyConfigured()) return Response.json({ error: "Set ANTHROPIC_API_KEY to refresh trends with web search." }, { status: 503 });
+  if (!apiKeyConfigured()) return Response.json({ error: "Web-search trend refresh is off: it needs a Claude API key, which this setup does not use. Daily niche trends (DESK_TREND_ACCOUNTS) still run." }, { status: 503 });
   const client = new Anthropic();
   const today = new Date().toISOString().slice(0, 10);
   const response = await client.messages.create({

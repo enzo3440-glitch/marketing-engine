@@ -2,8 +2,8 @@
 
 job.json
 {
-  "job_id": "2026-10-25-oahu-01",
-  "clips": [{"id": "c1", "path": "input/drone_lanikai.mp4", "star": true, "tags": ["drone"]}, ...],
+  "job_id": "2026-01-15-weekend-01",
+  "clips": [{"id": "c1", "path": "input/drone_beach.mp4", "star": true, "tags": ["drone"]}, ...],
   "defaults": {"duration": 15, "music": "assets/music/x.mp3", "caption": "...", "hashtags": [...]},
   "variants": [ {brief}, ... ],                 # explicit briefs (see plan.py), and/or
   "matrix": {"formats": ["montage", "oneshot"], "hooks": [{"id": "h1", "text": "..."}],

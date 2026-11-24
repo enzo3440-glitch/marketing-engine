@@ -35,23 +35,23 @@ from .common import BRAND_NAME, BRAND_TAGLINE, BRAND_NICHE, BRAND_CTA, FFMPEG, R
 
 VIDEO_EXT = (".mov", ".mp4", ".m4v")
 
-# Places footage tends to come from (name, lat, lon, radius km). Nearest match within radius wins.
+# Places footage may come from (name, lat, lon, radius km). Nearest match within radius wins. A generic starter list of
+# big cities; add your own regions in knowledge/places.json as [["Name", lat, lon, radius_km], ...].
 PLACES = [
-    ("North Shore", 21.62, -158.06, 9), ("Kailua", 21.40, -157.74, 7), ("Waikiki", 21.28, -157.83, 4),
-    ("Honolulu", 21.31, -157.86, 9), ("Oahu", 21.47, -157.98, 45), ("Kauai", 22.05, -159.50, 45),
-    ("Maui", 20.80, -156.33, 50), ("Molokai", 21.13, -157.02, 35), ("Big Island", 19.60, -155.50, 90),
-    ("Boston", 42.36, -71.06, 25), ("Cape Cod", 41.70, -70.30, 45), ("Providence", 41.82, -71.41, 20),
-    ("Vermont", 44.20, -72.70, 90), ("New Hampshire", 43.70, -71.60, 80), ("New York", 40.71, -74.01, 30),
-    ("Outer Banks", 35.60, -75.50, 60), ("San Francisco", 37.77, -122.42, 30), ("Montana", 45.70, -111.10, 150),
-    ("Barcelona", 41.39, 2.17, 20), ("Valencia", 39.47, -0.38, 30), ("Seville", 37.39, -5.98, 25),
-    ("Madrid", 40.42, -3.70, 30), ("Lisbon", 38.72, -9.14, 30), ("Paris", 48.86, 2.35, 30), ("Rome", 41.90, 12.50, 30),
-    ("Nice", 43.70, 7.27, 25), ("London", 51.51, -0.13, 35), ("Marrakech", 31.63, -8.00, 40),
-    ("the Sahara", 31.10, -4.00, 120), ("Essaouira", 31.51, -9.77, 25), ("Fes", 34.03, -5.00, 30),
-    ("Tokyo", 35.68, 139.69, 60), ("Kyoto", 35.01, 135.77, 30), ("Hanoi", 21.03, 105.85, 30),
-    ("Phu Quoc", 10.23, 103.96, 35), ("Ho Chi Minh City", 10.78, 106.70, 30), ("Bangkok", 13.75, 100.50, 40),
-    ("Koh Samui", 9.51, 100.01, 30), ("Koh Phangan", 9.73, 100.03, 15), ("Phuket", 7.95, 98.34, 35),
-    ("Khao Lak", 8.65, 98.25, 30), ("Krabi", 8.09, 98.91, 30), ("Bali", -8.40, 115.19, 70),
+    ("New York", 40.71, -74.01, 30), ("Los Angeles", 34.05, -118.24, 40), ("San Francisco", 37.77, -122.42, 30),
+    ("Chicago", 41.88, -87.63, 30), ("Miami", 25.76, -80.19, 30), ("Toronto", 43.65, -79.38, 30),
+    ("Mexico City", 19.43, -99.13, 35), ("London", 51.51, -0.13, 35), ("Paris", 48.86, 2.35, 30),
+    ("Berlin", 52.52, 13.40, 30), ("Madrid", 40.42, -3.70, 30), ("Rome", 41.90, 12.50, 30),
+    ("Amsterdam", 52.37, 4.90, 25), ("Istanbul", 41.01, 28.98, 40), ("Dubai", 25.20, 55.27, 40),
+    ("Cairo", 30.04, 31.24, 35), ("Cape Town", -33.92, 18.42, 35), ("Mumbai", 19.08, 72.88, 40),
+    ("Bangkok", 13.75, 100.50, 40), ("Singapore", 1.35, 103.82, 30), ("Tokyo", 35.68, 139.69, 60),
+    ("Seoul", 37.57, 126.98, 40), ("Sydney", -33.87, 151.21, 40), ("Sao Paulo", -23.55, -46.63, 40),
 ]
+try:
+    _extra = jload(os.path.join(os.path.dirname(__file__), "..", "knowledge", "places.json"))
+    PLACES += [tuple(x) for x in (_extra or []) if isinstance(x, (list, tuple)) and len(x) == 4]
+except Exception:
+    pass
 PLACE_NAMES = sorted({p[0] for p in PLACES}, key=len, reverse=True)
 
 

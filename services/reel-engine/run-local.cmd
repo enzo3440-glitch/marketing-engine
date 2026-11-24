@@ -1,6 +1,7 @@
 @echo off
-rem Local Reel Engine on Windows: uses bin\ffmpeg.exe + bin\ffprobe.cmd (shim) when ffmpeg isn't installed.
-rem Finished jobs in reel-data\output\ reload on start, so the Ops Desk gallery shows them.
+rem Local Reel Engine on Windows. Needs ffmpeg + ffprobe on PATH (winget install Gyan.FFmpeg, then open a new terminal),
+rem or ffmpeg.exe copied into bin\ (bin\ffprobe.cmd then stands in for ffprobe).
+rem Finished jobs in reel-data\output\ reload on start, so the desk's gallery shows them.
 rem REEL_TOKEN and AUTOPILOT_ROOTS (folders Autopilot may read) come from the repo .env.
 setlocal
 set "HERE=%~dp0"

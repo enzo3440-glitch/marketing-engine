@@ -1,3 +1,4 @@
+import { tzOffsetMs } from "./tz";
 import "server-only";
 import { getRepo } from "@engine/db";
 import { metaLink } from "./ad-campaigns";
@@ -55,6 +56,6 @@ export async function deskStatus(): Promise<DeskStatus> {
     rendering: jobs.filter((j) => j.status === "queued" || j.status === "rendering").length,
     reading: clipReadStatus().running,
     live: campaigns.filter((c) => c.status === "live").length,
-    postsToday: items.filter((c) => c.scheduled_at && new Date(Date.parse(c.scheduled_at) - 10 * 3600_000).toISOString().slice(0, 10) === today && c.status !== "posted").length,
+    postsToday: items.filter((c) => c.scheduled_at && new Date(Date.parse(c.scheduled_at) + tzOffsetMs()).toISOString().slice(0, 10) === today && c.status !== "posted").length,
   };
 }

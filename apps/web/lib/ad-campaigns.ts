@@ -1,3 +1,4 @@
+import { tzSuffix } from "./tz";
 import "server-only";
 import { MetaAds, type MetaAccount } from "@engine/connectors";
 import { getRepo, type AdCampaign, type AdCreativePick, type AdMetaIds, type AdObjective, type AdTrialPick, type Approval } from "@engine/db";
@@ -246,7 +247,7 @@ export async function submitCampaign(id: string, by: string): Promise<Approval> 
           `Waves (with live optimize on): when an ad is killed the next one for its feature switches on. Ads that prove themselves (${"2,000+"} impressions over 2+ days, clicks 25%+ above the test's median) move to a second campaign, Winners, where Meta spreads the budget; it opens with two and gets 50-70% of the daily budget. A feature that runs out of ads is paused and its share goes to the rest.`,
           `The launch never spends more than ${c.daily_budget}/day in all: the desk only moves it between the test and Winners. Raising it still comes here.`,
         ] : [`On approve: builds 1 campaign and 1 ad set in Meta, paused, with ${ads.length} ad${ads.length > 1 ? "s" : ""} (desk videos are uploaded with their thumbnail; Instagram posts are promoted as they are)`]),
-        `Switches on ${c.starts_on} and stops after ${c.ends_on} (Honolulu)`,
+        `Switches on ${c.starts_on} and stops after ${c.ends_on} (desk time)`,
         `Instagram Reels, Stories and Feed · ages ${c.age_min}–${c.age_max} · ${c.countries.join(", ")}`,
         `Headline: ${c.headline} · CTA ${c.cta} → ${c.link}`,
         ...ads.map(adLine),
@@ -306,10 +307,10 @@ export async function buildCampaign(id: string): Promise<AdCampaign> {
     const ios = /apps\.apple\.com/.test(c.link);
     if (!c.meta.campaign_id) await save({ meta: { campaign_id: await m.createCampaign(name, c.objective, { ios }) } });
     const today = hstToday();
-    const startTime = c.starts_on <= today ? new Date(Date.now() + 10 * 60_000).toISOString() : `${c.starts_on}T00:00:00-10:00`;
+    const startTime = c.starts_on <= today ? new Date(Date.now() + 10 * 60_000).toISOString() : `${c.starts_on}T00:00:00${tzSuffix()}`;
     const minor = (x: number) => toMinor(x, acct.currency);
     const newSet = (setName: string, daily: number) => m.createAdSet({
-      name: setName, campaignId: c.meta.campaign_id!, goal: c.objective, startTime, endTime: `${c.ends_on}T23:59:00-10:00`,
+      name: setName, campaignId: c.meta.campaign_id!, goal: c.objective, startTime, endTime: `${c.ends_on}T23:59:00${tzSuffix()}`,
       dailyBudgetMinor: minor(daily), countries: c.countries, ageMin: c.age_min, ageMax: c.age_max, link: c.link, appId: app?.id,
     });
     const features = await adFeatures(c);

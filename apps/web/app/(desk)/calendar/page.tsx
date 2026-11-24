@@ -1,3 +1,4 @@
+import { tzOffsetMs } from "@/lib/tz";
 import { getRepo, PILLARS } from "@engine/db";
 import Link from "next/link";
 import { Badge, Card, CardBody, CardHeader, Empty, PageHeader } from "@/components/ui";
@@ -8,7 +9,7 @@ import { CampaignCalendar, type PlanPostView, type ReelPick } from "./campaigns"
 import { MarketingPlan } from "./plan";
 import { planState, type PlanMeta } from "@/lib/marketing-plan";
 
-const hstDay = (iso: string) => new Date(Date.parse(iso) - 10 * 3600_000).toISOString().slice(0, 10);
+const hstDay = (iso: string) => new Date(Date.parse(iso) + tzOffsetMs()).toISOString().slice(0, 10);
 
 export default async function CalendarPage({ searchParams }: { searchParams: { week?: string; w?: string } }) {
   const session = await requireArea("calendar");

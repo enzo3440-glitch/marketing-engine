@@ -189,7 +189,7 @@ soft and few; no shimmers or sparkles. No trending, comedy or corporate "busines
 ${fs.existsSync(KIT) ? `Go fast: everything is already set up, so don't install or download tools or fonts.
 - ffmpeg: ${path.join(ENGINE, "bin", "ffmpeg.exe")}. Render tools (puppeteer-core, ffmpeg-static) are installed in ${path.join(KIT, "tools")}: require them from there.
 - The app's fonts are in ${path.join(KIT, "fonts")}.
-- ${path.join(KIT, "quest-ad")} (the floating look) and ${path.join(KIT, "florence-ad")} (the phone look) have the overlay,
+- Past ads in ${KIT} (one folder each, listed in library.md) have the overlay,
   render and compose scripts of ads we liked: start from them and change what this ad needs. README.md's kit section says how to render fast.` : ""}
 Never put an email address or any personal detail in a request (no user-agent with an email). Don't download photos from the web
 (Wikimedia, stock sites): use the footage and screens given; any image for a place can be a frame from the footage.

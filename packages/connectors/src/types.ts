@@ -1,3 +1,4 @@
+import { tzOffsetMs } from "@engine/db";
 import type { IntegrationStatus, Repo } from "@engine/db";
 
 export interface Status {
@@ -41,4 +42,4 @@ export async function httpJson<T>(url: string, init: RequestInit & { timeoutMs?:
   }
 }
 
-export const hstDay = (iso: string) => new Date(Date.parse(iso) - 10 * 3600_000).toISOString().slice(0, 10);
+export const hstDay = (iso: string) => new Date(Date.parse(iso) + tzOffsetMs()).toISOString().slice(0, 10);

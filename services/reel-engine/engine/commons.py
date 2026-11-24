@@ -4,8 +4,8 @@ Wikimedia Commons only: public-domain, CC0, CC BY and CC BY-SA files (never NC o
 every shot is cropped and panned). Each download is logged in the story's credits.json with its author and licence, so
 the caption can credit the CC BY / BY-SA ones.
 
-    python -m engine.commons search "Barcelona 1908" --kind video
-    python -m engine.commons fetch reel-data/story-docs/barcelona "File:Barcelona 1908.webm" --as 01-film-1908.webm
+    python -m engine.commons search "harbour 1908" --kind video
+    python -m engine.commons fetch reel-data/story-docs/old-harbour "File:Example 1908.webm" --as 01-film-1908.webm
 """
 import argparse
 import json

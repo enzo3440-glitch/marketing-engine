@@ -1,5 +1,6 @@
 // Deterministic 90-day mock dataset for every ops table. Used by the web app when Supabase is not
 // configured, and by scripts/seed.ts to fill a fresh Supabase project.
+import { tzOffsetMs } from "./tz";
 import { cmoCampaigns, cmoContentItems, cmoHooks, cmoRecommendations, cmoRefs, loadCmoExport, loadMarketingMapSeed } from "./cmo";
 import { apiBudgets, projectMonthEnd } from "./compute";
 import type {
@@ -59,8 +60,8 @@ function rng(seed: number) {
   };
 }
 
-const HST_OFFSET_MS = -10 * 3600_000;
-/** YYYY-MM-DD in Pacific/Honolulu (no DST, fixed UTC-10). */
+const HST_OFFSET_MS = tzOffsetMs();
+/** YYYY-MM-DD on the desk clock (DESK_TIMEZONE). */
 export function hstDate(d: Date): string {
   return new Date(d.getTime() + HST_OFFSET_MS).toISOString().slice(0, 10);
 }
@@ -69,7 +70,7 @@ const addDays = (iso: string, n: number) => {
   d.setUTCDate(d.getUTCDate() + n);
   return d.toISOString().slice(0, 10);
 };
-/** A Honolulu wall-clock time as an ISO instant. */
+/** A desk-clock wall time as an ISO instant. */
 const hstAt = (date: string, hh: number, mm = 0) =>
   new Date(Date.parse(`${date}T${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}:00Z`) - HST_OFFSET_MS).toISOString();
 
@@ -202,8 +203,8 @@ export function buildMockDataset(now = new Date()): Dataset {
   content_items.push(
     { id: "draft-1", platform: "instagram", kind: "reel", status: "draft", title: "The 6am routine, before anyone else", caption: "The quiet hour before the crowds.", media_url: null, scheduled_at: hstAt(addDays(today, 1), 17), posted_at: null, views: null, likes: null, saves: null, shares: null, attributed_signups: null, source: "cmo", meta: {} },
     { id: "sched-1", platform: "tiktok", kind: "trial_reel", status: "scheduled", title: "Expert vs beginner: weekend edition", caption: null, media_url: null, scheduled_at: hstAt(addDays(today, 2), 18), posted_at: null, views: null, likes: null, saves: null, shares: null, attributed_signups: null, source: "desk", meta: {} },
-    { id: "idea-1", platform: "instagram", kind: "reel", status: "idea", title: "The doorway you almost missed (Chinatown murals)", caption: null, media_url: null, scheduled_at: null, posted_at: null, views: null, likes: null, saves: null, shares: null, attributed_signups: null, source: "cmo", meta: {} },
-    { id: "appr-1", platform: "instagram", kind: "post", status: "approved", title: "Carousel: 5 spots for a rainy Manoa day", caption: null, media_url: null, scheduled_at: hstAt(addDays(today, 3), 9), posted_at: null, views: null, likes: null, saves: null, shares: null, attributed_signups: null, source: "desk", meta: {} },
+    { id: "idea-1", platform: "instagram", kind: "reel", status: "idea", title: "The doorway you almost missed", caption: null, media_url: null, scheduled_at: null, posted_at: null, views: null, likes: null, saves: null, shares: null, attributed_signups: null, source: "cmo", meta: {} },
+    { id: "appr-1", platform: "instagram", kind: "post", status: "approved", title: "Carousel: 5 ideas for a rainy weekend", caption: null, media_url: null, scheduled_at: hstAt(addDays(today, 3), 9), posted_at: null, views: null, likes: null, saves: null, shares: null, attributed_signups: null, source: "desk", meta: {} },
   );
   const paidImport = cmo ? cmoCampaigns(cmo.snapshot) : { campaigns: [], daily: [] };
   campaigns.push(...paidImport.campaigns);
@@ -212,9 +213,9 @@ export function buildMockDataset(now = new Date()): Dataset {
   const reel_hooks = cmoHooks(cmo?.snapshot, map, nowIso);
   const reel_clips: ReelClip[] = [
     { id: "c1", file: "drone_beach.mp4", source: "upload", kind: "broll", star: true, tags: ["drone", "beach"], thumb: null, quality: 0.86, duration: 24.1, talking_likely: false, added_at: hstAt(addDays(today, -4), 10) },
-    { id: "c2", file: "manoa_falls_walk.mp4", source: "upload", kind: "oneshot", star: false, tags: ["hike"], thumb: null, quality: 0.74, duration: 41.5, talking_likely: false, added_at: hstAt(addDays(today, -4), 10) },
+    { id: "c2", file: "forest_walk.mp4", source: "upload", kind: "oneshot", star: false, tags: ["hike"], thumb: null, quality: 0.74, duration: 41.5, talking_likely: false, added_at: hstAt(addDays(today, -4), 10) },
     { id: "c3", file: "app_demo.mp4", source: "upload", kind: "talking", star: false, tags: ["app", "talking"], thumb: null, quality: 0.68, duration: 32.0, talking_likely: true, added_at: hstAt(addDays(today, -3), 12) },
-    { id: "c4", file: "chinatown_doorway.mp4", source: "upload", kind: "broll", star: true, tags: ["art", "reveal"], thumb: null, quality: 0.81, duration: 18.7, talking_likely: false, added_at: hstAt(addDays(today, -3), 12) },
+    { id: "c4", file: "mural_doorway.mp4", source: "upload", kind: "broll", star: true, tags: ["art", "reveal"], thumb: null, quality: 0.81, duration: 18.7, talking_likely: false, added_at: hstAt(addDays(today, -3), 12) },
   ];
   const jobId = `example-${addDays(today, -3)}`;
   const testHooks = reel_hooks.slice(0, 3);

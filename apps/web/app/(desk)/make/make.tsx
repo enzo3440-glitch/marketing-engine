@@ -157,7 +157,7 @@ export function Maker({ ideas, clips: initialClips, initialIdea, initialRuns, re
             <div>
               <div className="label mb-1">{needsIdea ? "Anything to add (optional)" : mode === "template" ? "Your own hook (optional; otherwise the template's)" : "What it's about (optional)"}</div>
               <Textarea rows={2} value={note} onChange={(e) => setNote(e.target.value)}
-                placeholder={isApp(mode) ? "e.g. show the free hidden gem after typing Lisbon; end on the App Store" : mode === "template" ? "e.g. The best part was never on the itinerary." : mode === "raw" ? "e.g. use the Florence footage; keep it under 15 s" : "e.g. a calm sunrise reel, no text"} />
+                placeholder={isApp(mode) ? "e.g. show the main feature in two taps; end on the download screen" : mode === "template" ? "e.g. The best part was never on the itinerary." : mode === "raw" ? "e.g. use the newest footage; keep it under 15 s" : "e.g. a calm sunrise reel, no text"} />
             </div>
             <div className="flex flex-wrap items-center gap-2">
               {mode !== "template" && (

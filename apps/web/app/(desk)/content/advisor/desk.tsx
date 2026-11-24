@@ -39,7 +39,7 @@ export function AdvisorDesk({ status, posts, ideas, ledger: initialLedger }: {
         <Badge tone="success">evidence: own posts</Badge>
         <Badge tone="success">ledger rev {initialLedger.revision}</Badge>
         <Badge tone="outline"><Lock className="h-3 w-3" />cannot spend or publish</Badge>
-        <span className="text-xs text-muted-foreground">{connected ? "Proposals are drafts for review." : "Set ANTHROPIC_API_KEY for generation; until then ideation returns a copyable prompt."}</span>
+        <span className="text-xs text-muted-foreground">{connected ? "Proposals are drafts for review." : "Sign in to Claude Code on this machine (SETUP.md step 2); until then ideation returns a copyable prompt."}</span>
         {note && <span className="ml-auto text-xs text-primary">{note}</span>}
       </div>
 
@@ -73,7 +73,7 @@ export function AdvisorDesk({ status, posts, ideas, ledger: initialLedger }: {
 }
 
 function Ideation({ evidence, onHook, onCopy }: { evidence: string[]; onHook: (t: string) => void; onCopy: (t: string, msg: string) => void }) {
-  const [ctx, setCtx] = useState({ audience: "curious travelers planning Oahu", objective: "qualified app activations", channel: "instagram_public", emotion: "awe", tension: "Everyone follows the same recommendations", proof: "" });
+  const [ctx, setCtx] = useState({ audience: "people who would love the product", objective: "qualified app activations", channel: "instagram_public", emotion: "awe", tension: "Everyone follows the same recommendations", proof: "" });
   const [busy, setBusy] = useState(false);
   const [res, setRes] = useState<{ status: string; campaigns: CampaignDraft[]; prompt?: string } | null>(null);
   const [err, setErr] = useState("");

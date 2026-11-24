@@ -1,3 +1,4 @@
+import { tzOffsetMs } from "./tz";
 import "server-only";
 import { ReelEngine, type EngineVariant } from "@engine/connectors";
 import { getRepo, type PerfRow, type ReelJob, type ReelJobRequest, type ReelRef, type ReelVariant } from "@engine/db";
@@ -109,10 +110,10 @@ export async function deleteVideos(jobId: string, variantIds: string[] | null, k
 }
 
 /** Poll the engine for an unfinished job and persist its manifest + variants when done. */
-/** Batch id stamp: Honolulu time to the second plus a short random tail, so two batches started in the same
+/** Batch id stamp: desk time to the second plus a short random tail, so two batches started in the same
  * minute (auto-make fires several at once) never share an id and overwrite each other on the engine. */
 export const batchStamp = () =>
-  `${new Date(Date.now() - 10 * 3600_000).toISOString().slice(0, 19).replace(/[-:T]/g, "")}${Math.random().toString(36).slice(2, 5)}`;
+  `${new Date(Date.now() + tzOffsetMs()).toISOString().slice(0, 19).replace(/[-:T]/g, "")}${Math.random().toString(36).slice(2, 5)}`;
 
 /** Batches waiting for their clips to be read before they go to the engine (lib/clip-reader.ts submitWhenRead). */
 export const waitingJobs = ((globalThis as { __waitingJobs?: Set<string> }).__waitingJobs ??= new Set<string>());

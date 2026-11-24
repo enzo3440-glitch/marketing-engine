@@ -8,7 +8,7 @@
     "dev": "pnpm --filter @engine/web dev",
     "dev:worker": "pnpm --filter @engine/worker dev",
     "mcp": "pnpm --silent --filter @engine/mcp start",
-    "desk": "pnpm --filter @engine/web build && pnpm --filter @engine/web exec next start -p 3000",
+    "desk": "pnpm --filter @engine/web build && pnpm --filter @engine/web start",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",

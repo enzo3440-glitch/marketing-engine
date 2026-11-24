@@ -10,9 +10,11 @@
 >   check that it's non-empty (e.g. `grep -c '^META_ACCESS_TOKEN=.\+' .env`), never show it.
 > - The person types tokens and passwords into `.env` or a browser themselves. Don't ask them to paste a token into chat.
 > - No Anthropic API key. The desk runs Claude Code headless (`claude -p`) on the person's signed-in subscription.
->   `ANTHROPIC_API_KEY` must be unset in their shell and absent from `.env`.
+>   `ANTHROPIC_API_KEY` must be unset in their shell and absent from `.env`. (Two optional extras do need a key and simply
+>   stay off without one: the web-search trend refresh button and the background worker in `apps/worker`. Leave them off.)
 > - Nothing is posted publicly until step 10, and only after the person clicks Approve on Launch.
-> - Commands below are written for macOS/Linux shells. On Windows, use the PowerShell equivalents.
+> - Every command is given for macOS/Linux (bash) and for Windows (PowerShell). Use the one that matches their machine.
+> - All settings live in the repo-root `.env`. The desk, the engine and the MCP server all read that one file.
 
 ---
 
@@ -29,27 +31,50 @@ Install whatever is missing:
 | Git | any | to get updates |
 | Claude Code | latest | the desk's editor, taste maker and marketing advisor |
 
-On macOS: `brew install node python ffmpeg git`. On Windows: `winget install OpenJS.NodeJS.LTS Python.Python.3.12 Gyan.FFmpeg Git.Git`.
-Claude Code: see https://docs.claude.com/claude-code (the desktop app or `npm install -g @anthropic-ai/claude-code`).
+- macOS: `brew install node python ffmpeg git`
+- Windows: `winget install OpenJS.NodeJS.LTS Python.Python.3.12 Gyan.FFmpeg Git.Git`
+- Claude Code command-line tool, **even if they already use the Claude desktop app** (the desktop app doesn't put
+  `claude` on PATH): `npm install -g @anthropic-ai/claude-code`, or the native installer from https://docs.claude.com/claude-code.
+
+**After installing, open a new terminal** (and restart your own AI session if you're running inside one): new tools
+only appear on PATH in terminals opened after the install.
 
 Then, from the repo root:
 
 ```bash
+# macOS / Linux
 npx -y pnpm@9.15.0 install
 python -m pip install -r services/reel-engine/requirements.txt
 cp .env.example .env
 ```
 
-**Check:** `node -v` ≥ 20, `python --version` ≥ 3.11, `ffmpeg -version` and `ffprobe -version` both print a version,
-`pnpm install` finished without errors, and `.env` exists. `.env` must appear in `git status --ignored` as ignored, never as new.
+```powershell
+# Windows (PowerShell)
+git config core.longpaths true      # avoids "Filename too long" warnings from deep node_modules paths
+npx -y pnpm@9.15.0 install
+python -m pip install -r services/reel-engine/requirements.txt
+Copy-Item .env.example .env
+```
+
+Narration with a voice model is optional; to use it later, also `python -m pip install piper-tts`.
+
+**Check:** `node -v` ≥ 20, `python --version` ≥ 3.11, `ffmpeg -version`, `ffprobe -version` and `claude --version` all
+print a version, `pnpm install` finished without errors, and `.env` exists. `git check-ignore .env` must print `.env`
+(it's ignored, so it can never be committed).
 
 ## Step 2. Sign in to Claude (subscription login, no API key)
 
-1. The person runs `claude` once in a terminal and signs in with their Claude account (Pro or Max; Max is recommended,
-   the desk reads every clip and writes every script with it).
-2. Make sure no API key is set: `echo ${ANTHROPIC_API_KEY:+set}` should print nothing. If it prints `set`, remove the
-   key from their shell profile. The desk also strips it before every run.
-3. If `claude` isn't on PATH for the desk, put the full path in `.env` as `CLAUDE_CLI=`.
+1. If they already use Claude Code (desktop app or command line) on this computer, they're probably signed in already:
+   skip to the Check. Otherwise they run `claude` once in a terminal and sign in with their Claude account (Pro or Max;
+   Max is recommended, since the desk reads every clip and writes every script with it).
+2. Make sure no API key is set. It should print nothing:
+   - macOS / Linux: `echo ${ANTHROPIC_API_KEY:+set}`
+   - Windows: `if ($env:ANTHROPIC_API_KEY -or [Environment]::GetEnvironmentVariable('ANTHROPIC_API_KEY','User') -or [Environment]::GetEnvironmentVariable('ANTHROPIC_API_KEY','Machine')) { 'set' }`
+
+   If it prints `set`, remove the key from their shell profile / Windows environment variables. The desk also strips it
+   before every run.
+3. The desk finds `claude` on PATH, or the Claude desktop app's bundled copy. Only if neither works, put the full path in
+   `.env` as `CLAUDE_CLI=`.
 
 **Check:** `claude -p "Reply with the single word: ready"` prints `ready` without asking for a key.
 
@@ -92,12 +117,20 @@ browser. It shows **Valid**, the nine scopes above, and the expiry they chose. T
 
 ## Step 5. Find the three ids
 
-Run these with the token read from `.env` (so it never appears on screen). Example in bash:
+Run these with the token read from `.env` (so it never appears on screen):
 
 ```bash
+# macOS / Linux
 set -a; . ./.env; set +a
 curl -s "https://graph.facebook.com/v24.0/me/accounts?fields=id,name,instagram_business_account&access_token=$META_ACCESS_TOKEN"
 curl -s "https://graph.facebook.com/v24.0/me/adaccounts?fields=id,name,account_status&access_token=$META_ACCESS_TOKEN"
+```
+
+```powershell
+# Windows (PowerShell)
+$tok = ((Get-Content .env | Where-Object { $_ -match '^META_ACCESS_TOKEN=' }) -replace '^META_ACCESS_TOKEN=', '' -replace '\s+#.*$', '').Trim()
+Invoke-RestMethod "https://graph.facebook.com/v24.0/me/accounts?fields=id,name,instagram_business_account&access_token=$tok" | ConvertTo-Json -Depth 5
+Invoke-RestMethod "https://graph.facebook.com/v24.0/me/adaccounts?fields=id,name,account_status&access_token=$tok" | ConvertTo-Json -Depth 5
 ```
 
 - `META_PAGE_ID` = the Page's `id` from the first call.
@@ -115,9 +148,11 @@ returns their Instagram username. If it says "Unsupported get request", the IG i
 Walk through `.env.example` line by line with the person:
 
 - **Brand:** `BRAND_NAME`, `BRAND_PITCH`, `BRAND_NICHE`, `BRAND_GOAL`, `BRAND_IG_HANDLE` (and optionally `BRAND_TAGLINE`, `BRAND_CTA`).
-- **Engine:** `VIDEO_ENGINE_URL=http://127.0.0.1:8787`; `REEL_TOKEN` = a long random string you generate
-  (`openssl rand -hex 24` or `python -c "import secrets;print(secrets.token_hex(24))"`), written straight into `.env`
-  without printing it; `AUTOPILOT_ROOTS` = the folder(s) where they keep their own footage.
+- **Clock:** `DESK_TIMEZONE` = their timezone as an IANA name (e.g. `America/New_York`, `Europe/London`). Days,
+  posting hours and ad schedules follow it. Default UTC.
+- **Engine:** `VIDEO_ENGINE_URL=http://127.0.0.1:8787`; `REEL_TOKEN` = a long random string you generate with
+  `python -c "import secrets;print(secrets.token_hex(24))"` and write straight into `.env` without printing it to the
+  chat; `AUTOPILOT_ROOTS` = the folder(s) where they keep their own footage (separate several with `;`).
 - **Trends (optional):** `DESK_TREND_ACCOUNTS` = 5-15 big Instagram accounts in their niche, comma-separated, no @.
 - **Posting switches:** leave `DESK_TRIAL_POSTING=off` for now. It's switched on in step 10.
 - Leave the Supabase block empty unless they want a hosted database (without it, data stays on this machine).
@@ -146,21 +181,24 @@ text), and the person has said "yes, that sounds like us".
 Open two terminals.
 
 ```bash
-# Terminal 1: the reel engine
+# Terminal 1: the reel engine (reads the root .env itself)
 cd services/reel-engine
 python -m engine.server --root reel-data --host 127.0.0.1 --port 8787
-# (Windows: services\reel-engine\run-local.cmd)
+# Windows: services\reel-engine\run-local.cmd
 ```
 
 ```bash
-# Terminal 2: the desk (build once, then serve)
-npx -y pnpm@9.15.0 desk          # = build apps/web, then start on http://localhost:3000
+# Terminal 2: the desk (build, then serve on http://localhost:3000)
+npx -y pnpm@9.15.0 desk
 # For development with hot reload instead: npx -y pnpm@9.15.0 dev
 ```
 
-**Check:** http://localhost:3000 opens. Settings → Integrations shows Meta and the reel engine as connected (green).
-`curl -s http://127.0.0.1:8787/health` (with the bearer token if set) answers. If Meta shows `not_configured`, a
-`META_*` line is empty; if it shows an error, re-run the step 5 check.
+Something else already on port 3000? Set `PORT` in that terminal before starting the desk (`PORT=3100 npx -y pnpm@9.15.0 desk`,
+or on Windows `$env:PORT=3100; npx -y pnpm@9.15.0 desk`). Don't put `PORT` in `.env`. For another engine port, change
+`--port` and `VIDEO_ENGINE_URL` together. After any `.env` change, restart the desk with `pnpm desk` (it rebuilds).
+
+**Check:** http://localhost:3000 opens. Settings → Integrations shows Meta and the reel engine as connected (green). `http://127.0.0.1:8787/health` answers
+`{"ok": true}`. If Meta shows `not_configured`, a `META_*` line is empty; if it shows an error, re-run the step 5 check.
 
 ## Step 9. First ideas and first video
 
@@ -209,5 +247,9 @@ shows it as live. After 48-72 h, **Results** shows reach, skip rate and saves+sh
 | Meta error 190 | The token expired or was revoked. Generate a new one (step 4). |
 | Meta error 10 / 200 | A permission is missing from the token. Check the nine scopes in the debugger. |
 | "Unsupported get request" on the IG id | The Instagram account isn't professional or isn't linked to the Page (step 3). |
-| Renders fail with ffprobe errors | ffmpeg/ffprobe aren't on PATH for the engine's terminal. |
+| Renders fail with ffprobe errors | ffmpeg/ffprobe aren't on PATH for the engine's terminal. Open a new terminal after installing. |
+| `claude` not found, but the desktop app works | The desktop app doesn't add `claude` to PATH. Install the CLI (step 1). |
+| `claude.ps1 cannot be loaded` (Windows) | PowerShell's execution policy blocks npm's script shim. Run `claude.cmd`, or use the native installer. |
+| Integrations still says `not_configured` after filling `.env` | The desk wasn't restarted, or `.env` isn't in the repo root. Restart with `pnpm desk`. |
+| "Needs a Claude API key" on the trends refresh button | Expected: that optional button uses the API. Daily niche trends (`DESK_TREND_ACCOUNTS`) work without it. |
 | Narration step fails | `NARRATION_VOICE` isn't set. It needs a Piper `.onnx` voice you have the right to use (optional feature). |

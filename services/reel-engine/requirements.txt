@@ -3,4 +3,4 @@ opencv-python-headless>=4.8
 pillow>=10.0
 faster-whisper>=1.0   # optional: word-timed captions for talking/podcast formats
 pyspellchecker==0.8.1  # fixes OCR misreads in reference captions (optional)
-piper-tts>=1.8.0  # narration with your own Piper voice model (engine/narrate.py)
+# piper-tts>=1.8.0  # optional: uncomment for narration with your own Piper voice model (engine/narrate.py)

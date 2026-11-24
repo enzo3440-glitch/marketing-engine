@@ -1,9 +1,10 @@
+import { deskTimeZone, tzOffsetMs } from "./tz";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export const cn = (...v: ClassValue[]) => twMerge(clsx(v));
 
-const TZ = "Pacific/Honolulu";
+const TZ = deskTimeZone();
 
 export const fmt = {
   usd: (n: number | null | undefined, digits = 0) =>
@@ -25,9 +26,9 @@ export const fmt = {
   },
 };
 
-/** Today in Honolulu, YYYY-MM-DD. */
-export const hstToday = () => new Date(Date.now() - 10 * 3600_000).toISOString().slice(0, 10);
-export const daysAgo = (n: number) => new Date(Date.now() - 10 * 3600_000 - n * 86400_000).toISOString().slice(0, 10);
+/** Today on the desk clock (DESK_TIMEZONE), YYYY-MM-DD. */
+export const hstToday = () => new Date(Date.now() + tzOffsetMs()).toISOString().slice(0, 10);
+export const daysAgo = (n: number) => new Date(Date.now() + tzOffsetMs() - n * 86400_000).toISOString().slice(0, 10);
 
 export const RANGES = [7, 30, 90] as const;
 export function parseRange(v: string | string[] | undefined): number {

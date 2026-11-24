@@ -322,7 +322,7 @@ export function registerReels(server: McpServer) {
 
   define(server, "refresh_reel_trends", {
     title: "Refresh trending sounds & hooks", kind: "write", areas: ["content"],
-    description: "Have the desk research sounds and hooks trending now (Claude web search; needs ANTHROPIC_API_KEY on the desk) and add them to the pools. Or pass sounds you found to add them directly.",
+    description: "Have the desk research sounds and hooks trending now (Claude web search; optional, off unless the desk has an API key) and add them to the pools. Or pass sounds you found to add them directly.",
     input: {
       sounds: z.array(z.object({ title: z.string(), url: z.string().url(), artist: z.string().optional(), platform: z.string().optional(), why: z.string().optional(), seen: z.string().optional() })).optional(),
     },

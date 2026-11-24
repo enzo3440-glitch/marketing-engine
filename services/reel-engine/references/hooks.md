@@ -8,7 +8,7 @@ framework, and test them on identical edits.
 |---|---|---|---|
 | F1 | Contrarian | flip a travel norm | "Stop reading top 10 lists." |
 | F2 | Insider | locals / secret / nobody | "The spot locals send their friends, not you" |
-| F3 | Specific number | count + place | "3 places in Kailua Google won't rank" |
+| F3 | Specific number | count + place | "3 places in town Google won't rank" |
 | F4 | POV | first-person moment | "POV: you skipped the itinerary" |
 | F5 | Mistake | warn the viewer | "You're doing Oʻahu wrong if you only…" |
 | F6 | Curiosity gap | withhold the answer | "Found this by accident and I'm not saying where" (answer in comments = engagement) |

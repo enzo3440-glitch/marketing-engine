@@ -75,7 +75,7 @@ export function CreateBox({ checked, stub, onOpen }: { checked: string[]; stub: 
       <CardBody className="space-y-2">
         <textarea value={ask} onChange={(e) => setAsk(e.target.value)} rows={3}
           onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && ready) send.mutate(); }}
-          placeholder={"e.g. An ad about ending up at the Instagram spot with every other tourist, using the Florence footage.\nA 5-slide carousel: 3 hidden gems in Florence.\nA reel of my Kailua clips on the best trend template."}
+          placeholder={"e.g. An ad about the problem the product solves, using the newest footage.\nA 5-slide carousel: 3 tips for your audience.\nA reel of my weekend clips on the best trend template."}
           className="w-full resize-y rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-primary" />
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <div className="flex gap-1">

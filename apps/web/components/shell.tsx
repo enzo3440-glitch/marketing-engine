@@ -1,4 +1,5 @@
 "use client";
+import { deskTimeZone, tzLabel } from "@/lib/tz";
 import { useQuery } from "@tanstack/react-query";
 import {
   Activity, Calendar, ChevronRight, Command as CommandIcon, CornerDownLeft, Film, Gauge, Hammer, Landmark, Lightbulb, LineChart, Map, Plug, Rocket, Search, Server, TrendingUp,
@@ -103,8 +104,8 @@ function Clock() {
   useEffect(() => { setNow(new Date()); const t = setInterval(() => setNow(new Date()), 15_000); return () => clearInterval(t); }, []);
   if (!now) return <span className="w-24" />;
   return (
-    <span className="num hidden font-mono text-[11px] text-muted-foreground sm:inline" title="Honolulu time">
-      {now.toLocaleString("en-US", { timeZone: "Pacific/Honolulu", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false })} HST
+    <span className="num hidden font-mono text-[11px] text-muted-foreground sm:inline" title="Desk time (DESK_TIMEZONE)">
+      {now.toLocaleString("en-US", { timeZone: deskTimeZone(), weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false })} {tzLabel()}
     </span>
   );
 }

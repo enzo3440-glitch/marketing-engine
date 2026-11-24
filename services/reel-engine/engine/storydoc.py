@@ -15,15 +15,15 @@ One voice tells the story of a place. The picture is a history-channel cut made 
 Inputs: the spoken script (paragraphs split by blank lines; the last one is the call-to-action line), the narration
 audio, and a story folder with beats.json. There is one beat per paragraph (the CTA is excluded):
 
-    {"title": "Barcelona", "sub": "CATALONIA · SPAIN", "music": "....mp3", "hook": [1, 2], "gold": ["Barcino", "Cerdà"],
+    {"title": "Old Harbour", "sub": "A SHORT HISTORY", "music": "....mp3", "hook": [1, 2], "gold": ["the old wall", "the market"],
      "beats": [
        {"images": ["01.jpg"]},                                    # plain: one still, a gentle push
-       {"stamp": "11 SEPTEMBER 1714", "dip": true,                # era stamp, dip to black into this beat
-        "emphasis": [{"on": "national day", "text": "THE DAY THEY LOST", "sub": "IS THEIR NATIONAL DAY"}],
+       {"stamp": "SPRING 1850", "dip": true,                # era stamp, dip to black into this beat
+        "emphasis": [{"on": "festival", "text": "THE DAY IT BURNED", "sub": "IS NOW A FESTIVAL"}],
         "images": [
-          {"file": "siege.jpg", "from": [0.3, 0.5, 1.0], "to": [0.62, 0.45, 1.35],   # pan: centre x, y (0-1), zoom
-           "callouts": [{"type": "circle", "at": [0.62, 0.45], "r": 0.06, "label": "THE CITADEL", "on": "fell"}]},
-          {"file": "diada-2015.mp4", "in": 12.0, "look": "modern", "on": "national day"},
+          {"file": "harbour-1850.jpg", "from": [0.3, 0.5, 1.0], "to": [0.62, 0.45, 1.35],   # pan: centre x, y (0-1), zoom
+           "callouts": [{"type": "circle", "at": [0.62, 0.45], "r": 0.06, "label": "THE OLD WALL", "on": "burned"}]},
+          {"file": "festival-today.mp4", "in": 12.0, "look": "modern", "on": "festival"},
        ]}]}
 
 Shot keys: file, from/to [cx, cy, zoom], fit (whole picture on a blurred fill), look ("archive" | "film" | "modern"),
@@ -32,7 +32,7 @@ in (video start, s), on (start this shot on that spoken phrase), weight (share o
 Callout keys: type (circle | arrow | pin | route | box), at / from / to / points / box (0-1 source-image coordinates),
 r, label, sub, side ("left" | "right"), on (appear on that phrase) or t (seconds into the shot).
 
-    python -m engine.storydoc --story reel-data/story-docs/barcelona --script knowledge/story-docs/barcelona.txt \
+    python -m engine.storydoc --story reel-data/story-docs/old-harbour --script knowledge/story-docs/old-harbour.txt \
         --audio narration.wav --out out.mp4
 """
 import argparse
