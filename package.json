@@ -1,6 +1,7 @@
 {
   "name": "marketing-engine",
   "private": true,
+  "license": "MIT",
   "packageManager": "pnpm@9.15.0",
   "engines": { "node": ">=20" },
   "scripts": {
