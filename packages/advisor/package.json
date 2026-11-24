@@ -1,0 +1,20 @@
+{
+  "name": "@engine/advisor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Marketing Advisor (portable starter, source kept verbatim). Host adapters live in apps/web/lib/advisor.ts.",
+  "main": "src/advisor.mjs",
+  "types": "index.d.ts",
+  "exports": {
+    ".": { "types": "./index.d.ts", "default": "./src/advisor.mjs" },
+    "./core": { "types": "./core.d.ts", "default": "./src/core.mjs" },
+    "./ideation": { "types": "./ideation.d.ts", "default": "./src/ideation.mjs" }
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "typecheck": "echo 'plain ESM, see *.d.ts'",
+    "lint": "node --test tests/*.test.mjs",
+    "build": "echo 'no build'"
+  }
+}

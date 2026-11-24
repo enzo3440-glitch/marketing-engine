@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "marketing-engine": {
+      "command": "node",
+      "args": ["packages/mcp/node_modules/tsx/dist/cli.mjs", "packages/mcp/src/index.ts"],
+      "env": { "OPS_DESK_URL": "http://localhost:3000" }
+    }
+  }
+}

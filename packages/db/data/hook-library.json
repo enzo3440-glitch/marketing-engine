@@ -1,0 +1,30 @@
+{
+  "note": "Example hook templates. Seeded into the Reel Engine hook pool (reel_hooks). See services/reel-engine/references/hooks.md.",
+  "hooks": [
+    {
+      "text": "The best part was never in the plan.",
+      "framework": "F13 best parts",
+      "evidence": "example"
+    },
+    {
+      "text": "Plan less. Do more.",
+      "framework": "F1 contrarian",
+      "evidence": "example"
+    },
+    {
+      "text": "I probably shouldn't be posting this.",
+      "framework": "F11 gatekeep",
+      "evidence": "hypothesis (common pattern)"
+    },
+    {
+      "text": "Nobody tells you this about getting started.",
+      "framework": "F15 nobody tells you",
+      "evidence": "hypothesis"
+    },
+    {
+      "text": "Do you really need all of that? Honestly.",
+      "framework": "F16 call-out",
+      "evidence": "hypothesis"
+    }
+  ]
+}

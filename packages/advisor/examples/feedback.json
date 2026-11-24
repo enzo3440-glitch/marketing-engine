@@ -1,0 +1,18 @@
+{
+  "id": "feedback-demo-1",
+  "type": "outcome",
+  "creativeId": "draft-001",
+  "creativeVersion": "v1",
+  "exactCreativeId": "post-or-ad-id",
+  "windowStart": "2026-10-20T00:00:00Z",
+  "windowEnd": "2026-10-27T00:00:00Z",
+  "attributionWindow": "7-day click",
+  "attributionVerified": false,
+  "sourceId": "owner-export-required",
+  "spend": null,
+  "currency": "USD",
+  "follows": null,
+  "installs": null,
+  "activations": null,
+  "paidStatus": "unknown"
+}

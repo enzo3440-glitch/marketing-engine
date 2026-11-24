@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "title": "Acme · Marketing Map",
+  "updatedAt": null,
+  "channels": [
+    {
+      "id": "instagram",
+      "title": "Instagram page",
+      "subtitle": "Sell the feeling",
+      "color": "#d8e9bf",
+      "objective": "Build a community around the brand.",
+      "metric": "Follows per reached account; saves and meaningful conversations.",
+      "tone": "Optimistic · cinematic · useful",
+      "x": 310,
+      "y": 280
+    },
+    {
+      "id": "ads",
+      "title": "Instagram ad-only",
+      "subtitle": "Sell the product",
+      "color": "#f2c4a7",
+      "objective": "Turn a specific problem into a download and a useful first session.",
+      "metric": "Attributed installs, cost per activated user.",
+      "tone": "Direct · demonstrative · bolder",
+      "x": 1070,
+      "y": 280
+    },
+    {
+      "id": "tiktok",
+      "title": "TikTok",
+      "subtitle": "Challenge the old way",
+      "color": "#c8cff1",
+      "objective": "Start conversation, then earn follows and downloads.",
+      "metric": "Qualified reach, follows and attributable activation.",
+      "tone": "Playful · opinionated · fast",
+      "x": 700,
+      "y": 710
+    }
+  ],
+  "nodes": [
+    {
+      "id": "single",
+      "channel": "instagram",
+      "title": "One shot + a thought",
+      "hook": "The best part was never in the plan.",
+      "visual": "One original uninterrupted scene with one short, high-contrast line.",
+      "audio": "Natural sound or appropriately licensed music.",
+      "overlay": "The best part was never in the plan.",
+      "cta": "Follow for more.",
+      "hypothesis": "A single clear idea over strong footage can earn more saves than a busy montage.",
+      "note": ""
+    },
+    {
+      "id": "demo",
+      "channel": "ads",
+      "title": "Show it working",
+      "hook": "Here's the whole thing in ten seconds.",
+      "visual": "Real screen recording of the key step, then the result.",
+      "audio": "Licensed music, light and rhythmic.",
+      "overlay": "Here's the whole thing in ten seconds.",
+      "cta": "Try Acme.",
+      "hypothesis": "A clear demonstration beats a vague promise.",
+      "note": ""
+    },
+    {
+      "id": "nerd",
+      "channel": "tiktok",
+      "title": "Say what everyone is thinking",
+      "hook": "Be honest, how many tabs do you have open?",
+      "visual": "Quick relatable setup, then a real fix.",
+      "audio": "Trending sound or natural audio.",
+      "overlay": "Be honest, how many tabs do you have open?",
+      "cta": "See how Acme helps.",
+      "hypothesis": "Affectionate humor about the problem makes the solution inviting.",
+      "note": ""
+    }
+  ],
+  "taglines": [
+    "Acme makes it simple",
+    "Less busywork, more of what matters"
+  ],
+  "strategy": [
+    "Sell the feeling on the page. Show the proof in the ad. Make the contrast memorable on TikTok.",
+    "These channel roles are hypotheses. Test the same idea in more than one format.",
+    "One variable per test: hold the idea steady, change the opening or format. Judge business outcomes, not views alone."
+  ]
+}

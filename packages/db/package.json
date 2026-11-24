@@ -1,0 +1,32 @@
+{
+  "name": "@engine/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./cmo": "./src/cmo.ts",
+    "./compute": "./src/compute.ts",
+    "./learn": "./src/learn.ts",
+    "./marketing-plan": "./src/marketing-plan.ts",
+    "./types": "./src/types.ts"
+  },
+  "scripts": {
+    "seed": "tsx --env-file-if-exists=../../.env scripts/seed.ts",
+    "import:cmo": "tsx --env-file-if-exists=../../.env scripts/import-cmo.ts",
+    "types": "supabase gen types typescript --linked --schema ops > src/supabase.gen.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "tsc -p tsconfig.json",
+    "build": "echo 'source package, no build'"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.2"
+  }
+}

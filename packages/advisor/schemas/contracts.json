@@ -1,0 +1,293 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:engine:marketing-advisor:1",
+  "title": "Marketing advisor contracts",
+  "$defs": {
+    "observation": {
+      "type": "object",
+      "required": [
+        "id",
+        "creativeId",
+        "sourceUrl",
+        "metric",
+        "scope",
+        "paidStatus",
+        "observedAt",
+        "publishedAt",
+        "value",
+        "display",
+        "approximate",
+        "precision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "creativeId": {
+          "type": "string"
+        },
+        "sourceUrl": {
+          "type": "string"
+        },
+        "metric": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "paidStatus": {
+          "type": "string"
+        },
+        "observedAt": {
+          "type": "string"
+        },
+        "publishedAt": {
+          "type": "string"
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "display": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "approximate": {
+          "type": "boolean"
+        },
+        "precision": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "campaign": {
+      "type": "object",
+      "required": [
+        "title",
+        "audienceTension",
+        "differentiatedPromise",
+        "emotionalHook",
+        "hook",
+        "shotBeats",
+        "appProof",
+        "belongingCue",
+        "CTA",
+        "channelVariants",
+        "hypothesis",
+        "primaryMetric",
+        "guardrails",
+        "evidenceIds",
+        "lowCostTest",
+        "disconfirmingResult"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "audienceTension": {
+          "type": "string"
+        },
+        "differentiatedPromise": {
+          "type": "string"
+        },
+        "emotionalHook": {
+          "type": "string"
+        },
+        "hook": {
+          "type": "string"
+        },
+        "shotBeats": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "appProof": {
+          "type": "string"
+        },
+        "belongingCue": {
+          "type": "string"
+        },
+        "CTA": {
+          "type": "string"
+        },
+        "channelVariants": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hypothesis": {
+          "type": "string"
+        },
+        "primaryMetric": {
+          "type": "string"
+        },
+        "guardrails": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lowCostTest": {
+          "type": "string",
+          "minLength": 1
+        },
+        "disconfirmingResult": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "required": [
+        "id",
+        "stage",
+        "inspection",
+        "criteria"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "stage": {
+          "enum": [
+            "idea",
+            "video"
+          ]
+        },
+        "inspection": {
+          "type": "object",
+          "properties": {
+            "depth": {
+              "enum": [
+                "none",
+                "thumbnail",
+                "sampled_frames",
+                "transcript",
+                "full_audiovisual"
+              ]
+            },
+            "completed": {
+              "type": "boolean"
+            },
+            "reviewerId": {
+              "type": "string"
+            },
+            "evidenceSpans": {
+              "type": "array"
+            }
+          }
+        },
+        "criteria": {
+          "type": "object",
+          "properties": {
+            "hook": {
+              "type": "object",
+              "required": [
+                "value",
+                "rationale"
+              ],
+              "properties": {
+                "value": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4
+                },
+                "rationale": {
+                  "type": "string",
+                  "minLength": 8
+                }
+              }
+            },
+            "clarity": {
+              "type": "object",
+              "required": [
+                "value",
+                "rationale"
+              ],
+              "properties": {
+                "value": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4
+                },
+                "rationale": {
+                  "type": "string",
+                  "minLength": 8
+                }
+              }
+            },
+            "discoveryPayoff": {
+              "type": "object",
+              "required": [
+                "value",
+                "rationale"
+              ],
+              "properties": {
+                "value": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4
+                },
+                "rationale": {
+                  "type": "string",
+                  "minLength": 8
+                }
+              }
+            },
+            "brandFit": {
+              "type": "object",
+              "required": [
+                "value",
+                "rationale"
+              ],
+              "properties": {
+                "value": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4
+                },
+                "rationale": {
+                  "type": "string",
+                  "minLength": 8
+                }
+              }
+            },
+            "actionBridge": {
+              "type": "object",
+              "required": [
+                "value",
+                "rationale"
+              ],
+              "properties": {
+                "value": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4
+                },
+                "rationale": {
+                  "type": "string",
+                  "minLength": 8
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

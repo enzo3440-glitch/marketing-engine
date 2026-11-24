@@ -1,0 +1,23 @@
+node_modules
+.next
+dist
+out
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+.turbo
+*.tsbuildinfo
+next-env.d.ts
+__pycache__/
+.claude/
+
+# Your private data: never commit
+packages/db/data/private/
+services/reel-engine/reel-data/
+services/reel-engine/work/
+services/reel-engine/knowledge/founder-deletes.md
+
+# Local engine binaries (copied ffmpeg)
+services/reel-engine/bin/*.exe

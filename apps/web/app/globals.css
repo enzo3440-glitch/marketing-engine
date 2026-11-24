@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 40 33% 98%;
+  --foreground: 222 30% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 30% 12%;
+  --muted: 220 14% 94%;
+  --muted-foreground: 220 9% 42%;
+  --accent: 220 14% 92%;
+  --accent-foreground: 222 30% 12%;
+  --primary: 168 76% 32%;
+  --primary-foreground: 0 0% 100%;
+  --destructive: 0 72% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 152 60% 38%;
+  --warning: 36 92% 46%;
+  --info: 212 80% 50%;
+  --border: 220 13% 88%;
+  --input: 220 13% 85%;
+  --ring: 168 76% 32%;
+  --chart-1: 168 70% 40%;
+  --chart-2: 212 80% 56%;
+  --chart-3: 36 90% 52%;
+  --chart-4: 330 70% 58%;
+  --chart-5: 262 60% 62%;
+}
+
+/* Command-center palette: near-black blue, hairline panels, brand teal as the live signal, amber for attention. */
+.dark {
+  --background: 224 32% 5%;
+  --foreground: 210 24% 92%;
+  --card: 224 28% 7.5%;
+  --card-foreground: 210 24% 92%;
+  --muted: 224 22% 12%;
+  --muted-foreground: 218 12% 58%;
+  --accent: 222 22% 14%;
+  --accent-foreground: 210 24% 94%;
+  --primary: 166 76% 47%;
+  --primary-foreground: 224 32% 6%;
+  --destructive: 356 78% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 152 62% 48%;
+  --warning: 38 95% 56%;
+  --info: 208 90% 64%;
+  --border: 222 22% 15%;
+  --input: 222 20% 19%;
+  --ring: 166 76% 47%;
+  --chart-1: 166 70% 48%;
+  --chart-2: 208 90% 64%;
+  --chart-3: 38 95% 58%;
+  --chart-4: 330 78% 66%;
+  --chart-5: 262 72% 72%;
+}
+
+* { @apply border-border; }
+body { @apply bg-background font-sans text-foreground antialiased; font-feature-settings: "tnum" 1; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* faint operations-floor grid behind the work area */
+.ops-grid {
+  background-image:
+    linear-gradient(hsl(var(--border) / 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--border) / 0.35) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: -1px -1px;
+}
+/* micro label: panel and strip headings */
+.label { @apply font-mono text-[10.5px] font-medium uppercase tracking-[0.14em] text-muted-foreground; }
+
+@keyframes loadbar { 0% { transform: translateX(-100%) } 100% { transform: translateX(300%) } }
+@keyframes pulse-dot { 0%, 100% { opacity: 1 } 50% { opacity: 0.35 } }
+.live-dot { animation: pulse-dot 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: hsl(var(--muted)); border-radius: 6px; border: 2px solid hsl(var(--background)); }
+::-webkit-scrollbar-track { background: transparent; }

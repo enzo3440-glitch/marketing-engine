@@ -1,0 +1,14 @@
+{
+  "creativeId": "draft-001",
+  "version": "v1",
+  "ideaId": "whiteboard-node-id",
+  "assetRef": "tenant-owned-asset-key-not-arbitrary-url",
+  "durationSeconds": 22,
+  "channel": "instagram_ad_only",
+  "objective": "activations",
+  "inspection": {
+    "depth": "none",
+    "completed": false
+  },
+  "status": "awaiting_review"
+}
